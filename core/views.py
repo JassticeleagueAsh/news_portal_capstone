@@ -1,3 +1,9 @@
+"""
+Views for the News Portal application.
+
+Handles user authentication, dashboards, article management,
+newsletter management, and subscription features.
+"""
 import requests
 from django.conf import settings
 from django.contrib import messages
