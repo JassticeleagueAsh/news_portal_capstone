@@ -1,3 +1,9 @@
+"""
+Django settings for the News Portal project.
+
+Contains configuration for database, authentication,
+REST framework, and application settings.
+"""
 from pathlib import Path
 import os
 from dotenv import load_dotenv
