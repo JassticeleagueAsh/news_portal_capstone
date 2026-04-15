@@ -1,15 +1,22 @@
+"""
+Models for the News Portal application.
+
+This module defines all database models used in the system,
+including users, publishers, articles, and newsletters.
+"""
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
 class User(AbstractUser):
     """
-    Custom user model that supports role-based access control.
+    Custom user model with role-based access.
 
     Roles:
-    - reader: can view approved articles and newsletters
-    - editor: can review and approve articles
-    - journalist: can create articles and newsletters
+    - reader: can view content and subscribe
+    - editor: can approve articles
+    - journalist: can create content
     """
 
     ROLE_CHOICES = [
@@ -25,6 +32,7 @@ class User(AbstractUser):
         blank=True,
         related_name="subscribers",
     )
+
     subscribed_journalists = models.ManyToManyField(
         "self",
         blank=True,
@@ -35,9 +43,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         """
-        Clear reader-only subscription fields when the user is a journalist.
-
-        This helps separate reader subscription behaviour from journalist data.
+        Ensure journalists do not have reader subscriptions.
         """
         super().save(*args, **kwargs)
 
@@ -46,27 +52,25 @@ class User(AbstractUser):
             self.subscribed_journalists.clear()
 
     def __str__(self):
-        """
-        Return a readable string representation of the user.
-        """
+        """Return readable user representation."""
         return f"{self.username} ({self.role})"
 
 
 class Publisher(models.Model):
     """
     Represents a news publisher.
-
-    A publisher can have multiple editors and journalists.
     """
 
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
+
     editors = models.ManyToManyField(
         User,
         blank=True,
         related_name="publisher_editor_roles",
         limit_choices_to={"role": "editor"},
     )
+
     journalists = models.ManyToManyField(
         User,
         blank=True,
@@ -75,27 +79,25 @@ class Publisher(models.Model):
     )
 
     def __str__(self):
-        """
-        Return the publisher name.
-        """
+        """Return publisher name."""
         return self.name
 
 
 class Article(models.Model):
     """
-    Represents a news article written by a journalist.
-
-    Articles must be approved by an editor before readers can view them.
+    Represents a news article created by a journalist.
     """
 
     title = models.CharField(max_length=255)
     content = models.TextField()
+
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="articles",
         limit_choices_to={"role": "journalist"},
     )
+
     publisher = models.ForeignKey(
         Publisher,
         on_delete=models.SET_NULL,
@@ -103,32 +105,31 @@ class Article(models.Model):
         blank=True,
         related_name="articles",
     )
+
     created_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
 
     def __str__(self):
-        """
-        Return the article title.
-        """
+        """Return article title."""
         return self.title
 
 
 class Newsletter(models.Model):
     """
-    Represents a curated collection of articles created by a journalist.
-
-    Readers can view newsletters, while journalists create them.
+    Represents a collection of articles created by a journalist.
     """
 
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="newsletters",
         limit_choices_to={"role": "journalist"},
     )
+
     articles = models.ManyToManyField(
         Article,
         blank=True,
@@ -136,7 +137,5 @@ class Newsletter(models.Model):
     )
 
     def __str__(self):
-        """
-        Return the newsletter title.
-        """
+        """Return newsletter title."""
         return self.title
