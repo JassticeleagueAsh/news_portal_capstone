@@ -4,6 +4,7 @@ Django settings for the News Portal project.
 Contains configuration for database, authentication,
 REST framework, and application settings.
 """
+
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -64,16 +65,25 @@ TEMPLATES = [
 WSGI_APPLICATION = "news_portal.wsgi.application"
 
 # Database
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME") or "news_portal_db",
-        "USER": os.getenv("DB_USER") or "root",
-        "PASSWORD": os.getenv("DB_PASSWORD") or "root123",
-        "HOST": os.getenv("DB_HOST") or "127.0.0.1",
-        "PORT": os.getenv("DB_PORT") or "3306",
+# Use SQLite only when building Sphinx docs to avoid MySQL driver issues.
+if os.getenv("SPHINX_BUILD") == "True":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "docs_build.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("DB_NAME") or "news_portal_db",
+            "USER": os.getenv("DB_USER") or "root",
+            "PASSWORD": os.getenv("DB_PASSWORD") or "root123",
+            "HOST": os.getenv("DB_HOST") or "127.0.0.1",
+            "PORT": os.getenv("DB_PORT") or "3306",
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
