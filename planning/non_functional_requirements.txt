@@ -1,0 +1,55 @@
+NON-FUNCTIONAL REQUIREMENTS
+News Portal Capstone Project
+
+1. Usability
+- The application must be easy to navigate.
+- The interface must clearly show actions available to each role.
+- Forms must be clear and understandable.
+- Error messages must help the user fix mistakes.
+
+2. Security
+- Authentication must be required for protected pages.
+- Authorization must restrict actions based on role and permissions.
+- Passwords must be stored securely using Django’s built-in password hashing.
+- Sensitive settings such as database credentials must not be hardcoded in the project files.
+- Environment variables must be used for secrets and database configuration.
+
+3. Reliability
+- The application must handle invalid input without crashing.
+- The application must handle missing data safely.
+- API requests to third-party services must use exception handling.
+- Email sending and third-party posting should fail safely where possible.
+
+4. Performance
+- The application should load pages in a reasonable time.
+- Database queries should be efficient.
+- Related data should be fetched efficiently where needed.
+
+5. Maintainability
+- The code must be modular.
+- The code must use clear variable names.
+- The code must be readable and properly indented.
+- The code must follow PEP 8 style guidelines.
+- Comments should be added where necessary to improve clarity.
+
+6. Scalability
+- The design should allow more users, articles, newsletters, and publishers to be added without changing the core structure.
+- The database relationships should support growth of the platform.
+
+7. Portability
+- The project must run in a Python virtual environment.
+- The dependencies must be listed in requirements.txt.
+- The project must use MariaDB as required by the task.
+
+8. Documentation
+- The README must explain setup, installation, database creation, environment variables, migrations, and running the server.
+- The project structure should be documented clearly.
+
+9. Testability
+- The project must include automated tests.
+- The API and approval logic should be testable independently.
+
+10. UI/UX Quality
+- Pages should have consistent styling.
+- Navigation should be consistent across pages.
+- Buttons and links should be clearly visible and labelled.

@@ -1,0 +1,26 @@
+PLANNING SUMMARY
+Before implementation, the News Portal system was analysed in terms of:
+- Functional requirements
+- Non-functional requirements
+- UI/UX structure
+- Database design and normalisation
+
+The system was designed around three main roles:
+- Reader
+- Journalist
+- Editor
+
+The UI was planned to provide:
+- A clear landing page
+- Registration and login pages
+- Role-based dashboards
+- Article review and approval for editors
+- Public viewing of approved articles
+
+The database was designed with the following models:
+- User
+- Publisher
+- Article
+- Newsletter
+
+Relationships were normalised using ForeignKey and ManyToManyField to reduce duplication and improve maintainability.

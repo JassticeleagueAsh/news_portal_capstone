@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Journalist Dashboard</h1>
+
+    <div class="mb-4">
+        <a href="{% url 'create_article' %}" class="btn btn-success">Create Article</a>
+        <a href="{% url 'create_newsletter' %}" class="btn btn-warning">Create Newsletter</a>
+        <a href="{% url 'article_list' %}" class="btn btn-primary">View Articles</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+
+    <h2>Your Articles</h2>
+    {% if articles %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Publisher</th>
+                    <th>Approved</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td>
+                        {% if article.publisher %}
+                            {{ article.publisher.name }}
+                        {% else %}
+                            No publisher
+                        {% endif %}
+                    </td>
+                    <td>{{ article.approved }}</td>
+                    <td>
+                        <a href="{% url 'article_detail' article.id %}" class="btn btn-sm btn-info">View</a>
+                        <a href="{% url 'update_article' article.id %}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{% url 'delete_article' article.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No articles yet.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Your Newsletters</h2>
+    {% if newsletters %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Articles</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for newsletter in newsletters %}
+                <tr>
+                    <td>{{ newsletter.title }}</td>
+                    <td>{{ newsletter.description }}</td>
+                    <td>{{ newsletter.articles.count }}</td>
+                    <td>
+                        <a href="{% url 'update_newsletter' newsletter.id %}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{% url 'delete_newsletter' newsletter.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No newsletters yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

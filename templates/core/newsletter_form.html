@@ -1,0 +1,9 @@
+<h2>Create Newsletter</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Newsletter</button>
+</form>
+
+<a href="{% url 'journalist_dashboard' %}">Back</a>

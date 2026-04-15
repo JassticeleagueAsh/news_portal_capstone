@@ -1,0 +1,84 @@
+FUNCTIONAL REQUIREMENTS
+News Portal Capstone Project
+
+1. User Management
+- The system must allow users to register an account.
+- The system must allow users to log in and log out.
+- The system must use a custom user model.
+- The system must allow a user to be assigned one role.
+- The available roles must be Reader, Journalist, and Editor.
+- The system must assign the user to the correct group based on their role.
+
+2. Reader Features
+- A Reader must be able to view approved articles.
+- A Reader must be able to view newsletters.
+- A Reader must be able to subscribe to publishers.
+- A Reader must be able to subscribe to journalists.
+- A Reader must only see content from subscribed publishers and journalists where applicable.
+
+3. Journalist Features
+- A Journalist must be able to create articles.
+- A Journalist must be able to view articles.
+- A Journalist must be able to update their articles.
+- A Journalist must be able to delete their articles.
+- A Journalist must be able to create newsletters.
+- A Journalist must be able to view newsletters.
+- A Journalist must be able to update newsletters.
+- A Journalist must be able to delete newsletters.
+
+4. Editor Features
+- An Editor must be able to view articles.
+- An Editor must be able to update articles.
+- An Editor must be able to delete articles.
+- An Editor must be able to view newsletters.
+- An Editor must be able to update newsletters.
+- An Editor must be able to delete newsletters.
+- An Editor must be able to review submitted articles.
+- An Editor must be able to approve articles for publishing.
+
+5. Article Management
+- The system must store article title.
+- The system must store article content.
+- The system must store article author.
+- The system must store article created date and time.
+- The system must store whether the article is approved.
+- The system must store the publisher linked to an article where applicable.
+- An article must be associated with a journalist author.
+- An article may also be associated with a publisher.
+
+6. Publisher Management
+- The system must store publisher details.
+- A publisher must be able to have multiple editors.
+- A publisher must be able to have multiple journalists.
+
+7. Newsletter Management
+- The system must store newsletter title.
+- The system must store newsletter description.
+- The system must store newsletter created date and time.
+- The system must store newsletter author.
+- A newsletter must have a many-to-many relationship with articles.
+
+8. Approval Process
+- When an editor approves an article, the article status must change to approved.
+- When an editor approves an article, the system must email the article to subscribers.
+- When an editor approves an article, the system must send the article data to a third-party API / X integration.
+- The article approval logic must be implemented either with Django signals or directly in the approval view.
+
+9. RESTful API
+- The API must return all approved articles.
+- The API must return articles from subscribed publishers and journalists for a reader.
+- The API must return a single article by ID.
+- The API must allow journalists to create articles.
+- The API must allow editors and journalists to update articles.
+- The API must allow editors and journalists to delete articles.
+- The API must use token-based authentication.
+- The API must protect endpoints based on user role.
+
+10. Testing
+- The project must include automated unit tests.
+- Tests must verify authenticated access by role.
+- Tests must verify that readers only access subscribed content.
+- Tests must verify that journalists can create articles.
+- Tests must verify that editors can approve and delete articles.
+- Tests must verify newsletter functionality.
+- Tests must verify email/X integration logic using mocking.

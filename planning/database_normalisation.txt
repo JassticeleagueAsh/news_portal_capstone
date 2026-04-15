@@ -1,0 +1,90 @@
+DATABASE NORMALISATION
+News Portal Capstone Project
+
+1. Main Entities
+The main entities in the system are:
+- User
+- Publisher
+- Article
+- Newsletter
+
+2. User
+The custom User model stores authentication and role information.
+Fields include:
+- username
+- email
+- password
+- role
+
+Additional relationships:
+- subscribed_publishers (for readers)
+- subscribed_journalists (for readers)
+
+Reason:
+User data is stored in one table to avoid duplication of account information.
+
+3. Publisher
+The Publisher model stores publication information.
+A publisher can be linked to multiple journalists and editors.
+
+Reason:
+Publisher information is stored separately so that the same publisher details do not need to be repeated for every article.
+
+4. Article
+The Article model stores:
+- title
+- content
+- author
+- created_at
+- approved
+- publisher
+
+Reason:
+Each article is stored once in the Article table.
+The author is linked through a relationship instead of repeating all user details inside the article.
+The publisher is linked through a relationship instead of repeating publisher details in every row.
+
+5. Newsletter
+The Newsletter model stores:
+- title
+- description
+- created_at
+- author
+- articles (many-to-many)
+
+Reason:
+A newsletter can contain many articles, and an article can appear in more than one newsletter.
+A many-to-many relationship avoids duplication and supports proper normalisation.
+
+6. Normalisation Explanation
+First Normal Form (1NF):
+- Each table stores atomic values.
+- No repeating groups are stored in a single field.
+
+Second Normal Form (2NF):
+- Non-key attributes depend on the full primary key.
+- Many-to-many relationships are separated correctly.
+
+Third Normal Form (3NF):
+- Non-key fields depend only on the primary key.
+- Publisher details are stored in Publisher, not repeated inside Article.
+- User details are stored in User, not repeated in Article or Newsletter.
+
+7. Benefits of the Design
+- Reduces duplicated data
+- Improves consistency
+- Makes updates easier
+- Supports role-based relationships
+- Supports subscriptions and newsletters properly
+
+8. Relationships Summary
+- One User can author many Articles
+- One Publisher can have many Articles
+- One User can author many Newsletters
+- One Newsletter can contain many Articles
+- One Reader can subscribe to many Publishers
+- One Reader can subscribe to many Journalists
+
+9. Conclusion
+The database is structured to reduce redundancy and improve maintainability.
+ForeignKey and ManyToManyField relationships are used appropriately to keep the design normalised.

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Articles and Newsletters</h1>
+
+    <div class="mb-4">
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Dashboard</a>
+        <a href="{% url 'newsletter_list' %}" class="btn btn-warning">View Newsletters</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </div>
+
+    {% if user.role == "reader" %}
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h3>Publishers</h3>
+                {% for publisher in publishers %}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <strong>{{ publisher.name }}</strong><br>
+                            <small class="text-muted">{{ publisher.description }}</small><br><br>
+
+                            {% if publisher.id in subscribed_publisher_ids %}
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="btn btn-sm btn-success disabled">
+                                        Subscribed
+                                    </span>
+
+                                    <form method="POST" action="{% url 'unsubscribe_publisher' publisher.id %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            Unsubscribe
+                                        </button>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <form method="POST" action="{% url 'subscribe_publisher' publisher.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        Subscribe
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No publishers available.</p>
+                {% endfor %}
+            </div>
+
+            <div class="col-md-6">
+                <h3>Journalists</h3>
+                {% for journalist in journalists %}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <strong>{{ journalist.username }}</strong><br><br>
+
+                            {% if journalist.id in subscribed_journalist_ids %}
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <span class="btn btn-sm btn-success disabled">
+                                        Subscribed
+                                    </span>
+
+                                    <form method="POST" action="{% url 'unsubscribe_journalist' journalist.id %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            Unsubscribe
+                                        </button>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <form method="POST" action="{% url 'subscribe_journalist' journalist.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-success">
+                                        Subscribe
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No journalists available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <h2>Available Articles</h2>
+    {% if articles %}
+        <div class="list-group mb-4">
+            {% for article in articles %}
+                <a href="{% url 'article_detail' article.id %}" class="list-group-item list-group-item-action mb-2">
+                    <h5 class="mb-1">{{ article.title }}</h5>
+                    <small>
+                        by {{ article.author.username }}
+                        {% if article.publisher %}
+                            | {{ article.publisher.name }}
+                        {% endif %}
+                    </small>
+                    <p class="mb-1 mt-2">Approved: {{ article.approved }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No articles found.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Available Newsletters</h2>
+    {% if newsletters %}
+        <div class="list-group">
+            {% for newsletter in newsletters %}
+                <a href="{% url 'newsletter_detail' newsletter.id %}" class="list-group-item list-group-item-action mb-2">
+                    <h5 class="mb-1">{{ newsletter.title }}</h5>
+                    <small>By {{ newsletter.author.username }}</small>
+                    <p class="mb-1 mt-2">{{ newsletter.description }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No newsletters found.</p>
+    {% endif %}
+</div>
+{% endblock %}

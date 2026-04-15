@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ newsletter.title }}</h1>
+    <p><strong>Created by:</strong> {{ newsletter.author.username }}</p>
+    <p>{{ newsletter.description }}</p>
+
+    <hr>
+
+    <h3>Articles in this Newsletter</h3>
+    {% if newsletter.articles.all %}
+        <ul class="list-group">
+            {% for article in newsletter.articles.all %}
+                <li class="list-group-item">
+                    <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+                    {% if article.publisher %}
+                        <small class="text-muted"> | {{ article.publisher.name }}</small>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No articles linked to this newsletter.</p>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{% url 'newsletter_list' %}" class="btn btn-secondary">Back to Newsletters</a>
+    </div>
+</div>
+{% endblock %}

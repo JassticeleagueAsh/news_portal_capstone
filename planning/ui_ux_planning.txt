@@ -1,0 +1,123 @@
+UI/UX PLANNING
+News Portal Capstone Project
+
+1. Landing Page
+Purpose:
+- Introduce the News Portal application.
+- Provide easy access to login, register, and approved articles.
+
+Elements:
+- Welcome heading
+- Short description of the application
+- Login button
+- Register button
+- View Approved Articles button
+- Clean navigation area
+
+2. Register Page
+Purpose:
+- Allow new users to create an account.
+
+Elements:
+- Username field
+- Email field
+- Password field
+- Confirm password field
+- Role dropdown with Reader, Journalist, Editor
+- Register button
+- Link to login page
+- Validation messages for incorrect or missing input
+
+3. Login Page
+Purpose:
+- Allow existing users to sign in.
+
+Elements:
+- Username field
+- Password field
+- Login button
+- Link to register page
+- Error message for invalid login
+
+4. Reader View / Approved Articles Page
+Purpose:
+- Allow readers to view approved articles.
+
+Elements:
+- Page heading
+- List of approved articles
+- Article title
+- Article author
+- Publisher name if available
+- Read more / detail link
+- Navigation buttons for Home, Dashboard, Logout
+
+5. Article Detail Page
+Purpose:
+- Show full article content.
+
+Elements:
+- Article title
+- Author
+- Publisher
+- Date created
+- Full content
+- Back button
+- Navigation menu
+
+6. Journalist Dashboard
+Purpose:
+- Give journalists access to role-specific actions.
+
+Elements:
+- Welcome message
+- Button to view approved articles
+- Button to create article
+- Button to create newsletter
+- Button to manage their articles/newsletters
+- Home button
+- Logout button
+
+7. Editor Dashboard / Editor Article Review Page
+Purpose:
+- Allow editors to review and approve articles.
+
+Elements:
+- Page heading
+- Table/list of submitted articles
+- Article title
+- Author
+- Publisher
+- Approval status
+- Approve button
+- Edit / delete actions if needed
+- Home button
+- Logout button
+
+8. Navigation Rules
+- Unauthenticated users must only see public pages such as home, login, register, and approved articles.
+- Logged-in readers must be redirected to reader content.
+- Logged-in journalists must be redirected to journalist dashboard.
+- Logged-in editors must be redirected to editor review page or dashboard.
+- Logged-in superusers may use the admin site.
+
+9. Styling Plan
+- Use a clean and simple layout.
+- Use Bootstrap for consistent buttons, cards, forms, and spacing.
+- Use a central content container.
+- Use consistent button colours:
+  - Blue for primary actions
+  - Green for create/register actions
+  - Red for logout/delete actions
+- Keep spacing and alignment consistent on all pages.
+
+10. User Flow
+- User opens home page.
+- User chooses register or login.
+- After login:
+  - Reader goes to article list / reader view.
+  - Journalist goes to journalist dashboard.
+  - Editor goes to editor review page.
+- Editor approves article.
+- Approved article is emailed and sent to third-party API / X integration.
+- Readers can then access approved content.
