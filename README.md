@@ -2,9 +2,11 @@
 
 ## Project Overview
 
-This project is a Django-based News Portal web application developed as part of a capstone assignment.
+This project is a Django-based News Portal web application developed as
+part of a capstone assignment.
 
-The system supports multiple user roles with role-based permissions and allows for content creation, moderation, subscriptions, and API access.
+The system supports multiple user roles with role-based permissions and
+allows for content creation, moderation, subscriptions, and API access.
 
 ---
 
@@ -15,13 +17,14 @@ The system supports multiple user roles with role-based permissions and allows f
 * Editor
 * Publisher
 
-Each role has specific permissions controlling access and actions.
+Each role has specific permissions that control access and actions in
+the application.
 
 ---
 
 ## Core Features
 
-### Authentication & User Management
+### Authentication and User Management
 
 * User registration and login
 * Custom user model
@@ -38,7 +41,7 @@ Each role has specific permissions controlling access and actions.
 
 * Create, update, and delete articles
 * Create, update, and delete newsletters
-* Articles require editor approval
+* Submit articles for editor approval
 
 ### Editor
 
@@ -75,13 +78,13 @@ Built using Django REST Framework.
 
 Token-based authentication is implemented.
 
-### Get Token
+### Get a Token
 
 ```bash
 POST /api/token/
 ```
 
-Body:
+Request body:
 
 ```json
 {
@@ -90,7 +93,7 @@ Body:
 }
 ```
 
-### Use Token
+### Use the Token
 
 ```bash
 Authorization: Token your_token
@@ -106,12 +109,14 @@ Authorization: Token your_token
 * MariaDB
 * mysqlclient
 * Bootstrap 5
+* Docker
+* Sphinx
 
 ---
 
 ## Project Structure
 
-```
+```text
 news_portal_capstone/
 ├── core/
 ├── news_portal/
@@ -121,21 +126,44 @@ news_portal_capstone/
 ├── docs/
 ├── Dockerfile
 ├── docker-compose.yml
+├── .dockerignore
+├── .env.example
 ├── requirements.txt
 ├── manage.py
+└── README.md
 ```
 
 ---
 
 ## Database Setup (MariaDB)
 
-Create database:
+This project uses MariaDB as the primary database.
+
+### Step 1: Open MariaDB / MySQL
+
+```bash
+mysql -u root -p
+```
+
+Enter your password when prompted.
+
+### Step 2: Create the Database
 
 ```sql
 CREATE DATABASE news_portal_db;
 ```
 
-Create `.env` file:
+---
+
+## Environment Variables
+
+### Step 1: Copy the Example File
+
+```bash
+copy .env.example .env
+```
+
+### Step 2: Update `.env`
 
 ```env
 DB_NAME=news_portal_db
@@ -144,13 +172,15 @@ DB_PASSWORD=your_password
 DB_HOST=127.0.0.1
 DB_PORT=3306
 SECRET_KEY=your_secret_key
+DEBUG=True
+SPHINX_BUILD=False
 ```
 
 ---
 
 ## Running the Project
 
-### 1. Using Virtual Environment (venv)
+### Option 1: Virtual Environment (venv)
 
 ```bash
 git clone https://github.com/JassticeleagueAsh/news_portal_capstone.git
@@ -173,13 +203,13 @@ http://127.0.0.1:8000/
 
 ---
 
-### 2. Using Docker
+### Option 2: Docker
 
-Make sure Docker Desktop is running.
+Ensure Docker Desktop is running.
 
 ```bash
-docker-compose build
-docker-compose up
+cd news_portal_capstone
+docker-compose up --build
 ```
 
 Open:
@@ -188,7 +218,7 @@ Open:
 http://127.0.0.1:8000/
 ```
 
-Stop containers:
+Stop:
 
 ```bash
 docker-compose down
@@ -204,6 +234,22 @@ python manage.py test
 
 ---
 
+## Sphinx Documentation
+
+```bash
+cd docs
+.\make.bat clean
+.\make.bat html
+```
+
+Open:
+
+```
+docs\_build\html\index.html
+```
+
+---
+
 ## Key Concepts Demonstrated
 
 * Role-based access control
@@ -212,14 +258,15 @@ python manage.py test
 * Token authentication
 * Docker containerization
 * Sphinx documentation
-* Clean project structuring
+* Environment-based configuration
 
 ---
 
 ## Notes
 
-* Sensitive data is not committed (see `.env.example`)
-* Project follows best practices for deployment readiness
+* Sensitive data is not committed to the repository
+* Use `.env.example` to configure your environment
+* Sphinx uses `SPHINX_BUILD=True` to bypass MySQL during doc builds
 
 ---
 
@@ -231,3 +278,4 @@ Ashwin Jass
 
 ## Repository
 
+https://github.com/JassticeleagueAsh/news_portal_capstone
