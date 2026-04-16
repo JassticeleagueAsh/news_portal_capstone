@@ -2,6 +2,16 @@ from django.urls import path
 
 from . import views
 
+"""
+API URL configuration for the News Portal application.
+
+This module defines all API endpoints, including:
+- article retrieval
+- subscribed content
+- CRUD operations for articles
+- token authentication endpoint
+"""
+
 urlpatterns = [
     path("", views.home_view, name="home"),
     path("register/", views.register_view, name="register"),

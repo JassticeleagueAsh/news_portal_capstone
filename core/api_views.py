@@ -1,3 +1,14 @@
+"""
+API views for the News Portal application.
+
+This module provides REST API endpoints for:
+- retrieving articles
+- retrieving subscribed content
+- creating, updating, and deleting articles
+
+Authentication is handled using token-based authentication.
+Permissions ensure role-based access control.
+"""
 from rest_framework import generics, permissions
 from rest_framework.authentication import TokenAuthentication
 

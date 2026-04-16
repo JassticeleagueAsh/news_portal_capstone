@@ -3,6 +3,14 @@ from django.dispatch import receiver
 from django.contrib.auth.models import Group, Permission
 from .models import User
 
+"""
+Signal handlers for the News Portal application.
+
+Handles:
+- creation of role-based groups and permissions
+- automatic assignment of users to groups based on role
+"""
+
 
 @receiver(post_migrate)
 def create_roles_and_permissions(sender, **kwargs):

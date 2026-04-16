@@ -3,6 +3,13 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from .models import Article, Newsletter, Publisher, User
 
+"""
+Forms for the News Portal application.
+
+Handles user registration, authentication,
+and creation/updating of articles, newsletters, and publishers.
+"""
+
 
 class RegisterForm(UserCreationForm):
     """

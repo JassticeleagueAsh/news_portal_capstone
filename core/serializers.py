@@ -1,6 +1,13 @@
 from rest_framework import serializers
 from .models import User, Publisher, Article, Newsletter
 
+"""
+Serializers for the News Portal API.
+
+Convert Django model instances into JSON representations
+and validate incoming API data.
+"""
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

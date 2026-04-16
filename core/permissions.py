@@ -1,5 +1,14 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
+"""
+Custom permission classes for the News Portal API.
+
+Defines role-based access control for:
+- readers
+- journalists
+- editors
+"""
+
 
 class IsReaderOrReadOnly(BasePermission):
     def has_permission(self, request, view):
